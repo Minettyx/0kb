@@ -14,7 +14,7 @@ const schema = mongoose.Schema({
     required: true,
     unique: true,
     dropDups: true
-  }
+  },
   url: {
     type: String,
     validate: {
@@ -24,7 +24,7 @@ const schema = mongoose.Schema({
       message: props => `${props.value} is not a valid url!`
     },
     required: [true, 'Url to short required']
-  }
+  },
   date: { type: Date, default: Date.now }
 });
 
