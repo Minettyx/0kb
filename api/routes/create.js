@@ -16,7 +16,7 @@ router.get('/', (req, res, next) => {
 
   shorturl.save().then(result => {
     console.log(result);
-  }).catch(err => console.log(err));
+  }).catch(err => next(err));
 
   res.status(200).json({
     ok: true,
