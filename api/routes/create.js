@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-const Shorturl = require('../models/product');
+const Shorturl = require('../models/url');
 
 router.get('/', (req, res, next) => {
 
