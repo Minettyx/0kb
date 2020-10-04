@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const Shorturl = require('../models/url');
 
-router.get('/', (req, res, next) => {
+router.post('/', (req, res, next) => {
 
   const shortid = req.body.id ? req.body.id : makeid(6);
 
