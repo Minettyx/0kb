@@ -3,6 +3,6 @@ const router = express.Router();
 
 const create = require('./create');
 
-router.use('/createLink', search);
+router.use('/createLink', create);
 
 module.exports = router;
