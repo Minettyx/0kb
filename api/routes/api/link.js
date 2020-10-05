@@ -6,7 +6,7 @@ const Shorturl = require('../../models/url');
 
 router.post('/', (req, res, next) => {
 
-  if(req.token==process.env.TOKEN)next();else{const e=new Error("Authentication Error");e.status=401,e.name="Unauthorized",next(e)}
+  if(req.token!=process.env.TOKEN){const e=new Error("Authentication Error");e.status=401,e.name="Unauthorized",next(e)}
 
   const shortid = req.body.id ? req.body.id : makeid(6);
 
@@ -27,7 +27,7 @@ router.post('/', (req, res, next) => {
 
 router.get('/', (req, res, next) => {
 
-  if(req.token==process.env.TOKEN)next();else{const e=new Error("Authentication Error");e.status=401,e.name="Unauthorized",next(e)}
+  if(req.token!=process.env.TOKEN){const e=new Error("Authentication Error");e.status=401,e.name="Unauthorized",next(e)}
 
   Shorturl.find({}, {'_id':0, 'url':1, 'id':1, 'date':1}).exec().then(result => {
     res.status(200).json(result);
@@ -37,7 +37,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:shortid', (req, res, next) => {
 
-  if(req.token==process.env.TOKEN)next();else{const e=new Error("Authentication Error");e.status=401,e.name="Unauthorized",next(e)}
+  if(req.token!=process.env.TOKEN){const e=new Error("Authentication Error");e.status=401,e.name="Unauthorized",next(e)}
 
   Shorturl.findOne({'id': req.params.shortid}, {'_id':0, 'url':1, 'id':1, 'date':1}).exec().then(result => {
     if(result) {
@@ -54,7 +54,7 @@ router.get('/:shortid', (req, res, next) => {
 
 router.delete('/:shortid', (req, res, next) => {
 
-  if(req.token==process.env.TOKEN)next();else{const e=new Error("Authentication Error");e.status=401,e.name="Unauthorized",next(e)}
+  if(req.token!=process.env.TOKEN){const e=new Error("Authentication Error");e.status=401,e.name="Unauthorized",next(e)}
 
   Shorturl.findOneAndDelete({'id': req.params.shortid}).exec().then(result => {
     if(result) {
