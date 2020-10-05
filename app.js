@@ -20,6 +20,7 @@ app.use(bearerToken());
 //AUTH
 
 app.use((req, res, next) => {
+  if(!req.baseUrl.startsWith('/api')) next();
   if(req.token == process.env.TOKEN) {
     next();
   } else {
