@@ -17,22 +17,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(bearerToken());
 
-//AUTH
-
-app.use((req, res, next) => {
-  if(!req.baseUrl.startsWith('/api')) next();
-  console.log(process.env.TOKEN);
-  console.log(process.env.MONGO_URL);
-  if(req.token == process.env.TOKEN) {
-    next();
-  } else {
-    const error = new Error('Authentication Error');
-    error.status = 401;
-    error.name = "Unauthorized";
-    next(error);
-  }
-});
-
 //CORS and OPTIONS setup
 app.use((req, res, next) => {
   res.set('Access-Control-Allow-Origin', '*');
