@@ -21,6 +21,8 @@ app.use(bearerToken());
 
 app.use((req, res, next) => {
   if(!req.baseUrl.startsWith('/api')) next();
+  console.log(process.env.TOKEN);
+  console.log(process.env.MONGO_URL);
   if(req.token == process.env.TOKEN) {
     next();
   } else {
