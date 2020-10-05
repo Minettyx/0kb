@@ -5,16 +5,30 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const bearerToken = require('express-bearer-token');
 
-const apiRouter = require('./api/routes/router');
+const linkRoute = require('./api/routes/api/link');
+const indexRoute = require('./api/routes/main');
 
-mongoose.connect(process.env.MONGO_URL, {
-  useMongoClient: true
-});
+const Authtoken = require('./api/models/token');
+
+mongoose.connect(process.env.MONGO_URL, {});
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(bearerToken());
+
+//AUTH
+
+app.use((req, res, next) => {
+  if(req.token == process.env.TOKEN) {
+    next();
+  } else {
+    const error = new Error('Authentication Error');
+    error.status = 401;
+    error.name = "Unauthorized";
+    next(error);
+  }
+});
 
 //CORS and OPTIONS setup
 app.use((req, res, next) => {
@@ -27,7 +41,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api', apiRouter);
+app.use('/api/link', linkRoute);
+app.use('/', indexRoute);
 
 
 //ERROR handling

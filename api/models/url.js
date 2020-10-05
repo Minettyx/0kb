@@ -2,18 +2,16 @@ const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  shortId: {type: String, unique: true, required: true, dropDups: true},
-  shortid: {
+  id: {
     type: String,
     validate: {
       validator: function(v) {
-        return /^[a-z0-9_-]{6,30}$/.test(v);
+        return /^[a-zA-Z0-9_-]{6,30}$/.test(v);
       },
       message: props => `${props.value} is not a valid id!`
     },
     required: true,
-    unique: true,
-    dropDups: true
+    index: { unique: true }
   },
   url: {
     type: String,
@@ -23,7 +21,7 @@ const schema = mongoose.Schema({
       },
       message: props => `${props.value} is not a valid url!`
     },
-    required: [true, 'Url to short required']
+    required: [true, 'Url required']
   },
   date: { type: Date, default: Date.now }
 });
