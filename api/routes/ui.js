@@ -9,7 +9,7 @@ router.get('/', (req, res, next) => {
     fs.readFile('./content/ui.html', 'utf8', function (err,data) {
       if(err){next(err);return;}
 
-      res.send(data.split('$$domain$$').join(req.protocol+'://'+req.get('host')+'/').split('$$token$$').join(req.query.token));
+      res.send(data.split('$$domain$$').join('//'+req.get('host')+'/').split('$$token$$').join(req.query.token));
     });
 
 });

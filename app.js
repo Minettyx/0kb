@@ -33,7 +33,6 @@ app.use('/api/link', linkRoute);
 app.use('/ui', uiRoute);
 app.use('/', indexRoute);
 
-
 //ERROR handling
 app.use((req, res, next) => {
   const error = new Error('Cannot '+req.method+' '+req.path);
