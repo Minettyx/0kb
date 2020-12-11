@@ -7,7 +7,6 @@ const bearerToken = require('express-bearer-token');
 
 const linkRoute = require('./api/routes/api/link');
 const indexRoute = require('./api/routes/main');
-const uiRoute = require('./api/routes/ui');
 
 const Authtoken = require('./api/models/token');
 
@@ -30,7 +29,6 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/link', linkRoute);
-app.use('/ui', uiRoute);
 app.use('/', indexRoute);
 
 
